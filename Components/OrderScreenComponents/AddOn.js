@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native'
 import SeparationLine from '../SeparationLine'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -13,14 +14,23 @@ const styles = StyleSheet.create({
     margin: 3,
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    width: '50%'
   },
   checkIcon: {
     height: 25,
     width: 25,
     position: 'absolute',
-    marginLeft: '90%',
-    marginTop: 12
+    marginLeft: '90%'
+  },
+  inline: {
+    flexDirection: 'row',
+    width: '100%',
+    height: '100%'
+  },
+  price: {
+    width: '50%',
+    paddingLeft: '20%'
   }
 })
 
@@ -29,6 +39,12 @@ export default class AddOn extends Component {
     super(props)
     this.state = { check: false }
     this.checkAddOn = this.checkAddOn.bind(this)
+    this.padPrice = this.padPrice.bind(this)
+  }
+
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
   }
 
   checkAddOn() {
@@ -36,14 +52,22 @@ export default class AddOn extends Component {
     else this.setState({ check: false })
   }
 
+  padPrice(price) {
+    if (price >= 1) return price.toString() + '.00'
+    return price.toString() + '0'
+  }
+
   render() {
     return (
       <View>
         <TouchableOpacity style={styles.container} onPress={() => this.checkAddOn()}>
-          <Text style={styles.text}>{this.props.name}</Text>
-          {this.state.check && (
-            <Image style={styles.checkIcon} source={require('../../Images/check.png')} />
-          )}
+          <View style={styles.inline}>
+            <Text style={styles.text}>{this.props.name}</Text>
+            <Text style={[styles.text, styles.price]}>${this.padPrice(this.props.price)}</Text>
+            {this.state.check && (
+              <Image style={styles.checkIcon} source={require('../../Images/check.png')} />
+            )}
+          </View>
         </TouchableOpacity>
         <SeparationLine />
       </View>
