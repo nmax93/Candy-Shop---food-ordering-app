@@ -9,6 +9,7 @@ import {
   Animated
 } from 'react-native'
 import AddOn from './AddOn'
+import PropTypes from 'prop-types'
 
 const Window = Dimensions.get('window')
 
@@ -48,6 +49,11 @@ export default class AddOnsList extends Component {
       opacity: new Animated.Value(0)
     }
     this.hideAddOnsList = this.hideAddOnsList.bind(this)
+    this.mapAddOns = this.mapAddOns.bind(this)
+  }
+
+  static propTypes = {
+    addOns: PropTypes.array.isRequired
   }
 
   showAddOnsList() {
@@ -80,6 +86,14 @@ export default class AddOnsList extends Component {
     })
   }
 
+  mapAddOns() {
+    let count = 0
+    const addOns = this.props.addOns.map(item => {
+      return <AddOn key={count++} name={item.name} price={item.price} />
+    })
+    return addOns
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -95,13 +109,7 @@ export default class AddOnsList extends Component {
           <View style={styles.titleContainer}>
             <Text style={styles.text}>AVAILABLE ADD ONS</Text>
           </View>
-          <ScrollView>
-            <AddOn name="NUTELLA" />
-            <AddOn name="STRAWBERRIES" />
-            <AddOn name="BANANAS" />
-            <AddOn name="CREAM" />
-            <AddOn name="HAZELNUTS" />
-          </ScrollView>
+          <ScrollView>{this.mapAddOns()}</ScrollView>
         </Animated.View>
       </View>
     )
