@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,15 +24,18 @@ const styles = StyleSheet.create({
 })
 
 export default class OrderDetails extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>French Crepe</Text>
-        <Text style={[styles.text, styles.price]}>$7.00</Text>
-        <Text style={styles.description}>
-          Sweet french crepe with powdered sugar available with Nutella, bananas, strawberries,
-          cream and hazelnuts
-        </Text>
+        <Text style={styles.text}>{this.props.title}</Text>
+        <Text style={[styles.text, styles.price]}>${this.props.price}.00</Text>
+        <Text style={styles.description}>{this.props.description}</Text>
       </View>
     )
   }
