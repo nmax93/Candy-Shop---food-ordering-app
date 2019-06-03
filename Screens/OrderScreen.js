@@ -27,19 +27,24 @@ export default class OrderScreen extends Component {
 
   render() {
     const { navigation } = this.props
+    const product = navigation.getParam('product', '')
 
     return (
       <View style={styles.container}>
         <ScrollView>
-          <OrderImage />
-          <OrderDetails />
+          <OrderImage url={product.image} />
+          <OrderDetails
+            title={product.name}
+            price={product.price}
+            description={product.description}
+          />
           <SeparationLine />
           <AddOnsButton controller={this.AddOnsListController} />
           <SeparationLine />
           <PrettyButton text="ADD TO CART" onPress={() => navigation.navigate('CheckOutScreen')} />
           <SeparationLine />
         </ScrollView>
-        <AddOnsList ref={this.AddOnsListController} />
+        <AddOnsList ref={this.AddOnsListController} addOns={product.addOns} />
       </View>
     )
   }
