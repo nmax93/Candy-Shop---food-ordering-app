@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Image } from 'react-native'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   image: {
@@ -9,15 +10,11 @@ const styles = StyleSheet.create({
 })
 
 export default class OrderImage extends Component {
+  static propTypes = {
+    url: PropTypes.string.isRequired
+  }
+
   render() {
-    return (
-      <Image
-        style={styles.image}
-        source={{
-          uri:
-            'https://www.curiouscuisiniere.com/wp-content/uploads/2013/05/French-Sweet-Crepes-with-Nutella-3984.21.jpg'
-        }}
-      />
-    )
+    return <Image style={styles.image} source={{ uri: this.props.url }} />
   }
 }
