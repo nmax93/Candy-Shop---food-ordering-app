@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -44,30 +45,26 @@ const styles = StyleSheet.create({
 })
 
 export default class MainScreenProduct extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+  static propTypes = {
+    product: PropTypes.object.isRequired,
+    navigation: PropTypes.object.isRequired
   }
 
   render() {
+    const navigation = this.props.navigation
+    const product = this.props.product
     return (
-      <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={{
-            uri:
-              'https://www.curiouscuisiniere.com/wp-content/uploads/2013/05/French-Sweet-Crepes-with-Nutella-3984.21.jpg'
-          }}
-        />
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => navigation.navigate('OrderScreen', { product: product })}
+      >
+        <Image style={styles.image} source={{ uri: product.image }} />
         <View style={styles.inline}>
-          <Text style={[styles.text, styles.title]}>French Crepe</Text>
-          <Text style={[styles.text, styles.price]}>$7.00</Text>
+          <Text style={[styles.text, styles.title]}>{product.name}</Text>
+          <Text style={[styles.text, styles.price]}>${product.price}.00</Text>
         </View>
-        <Text style={[styles.text, styles.description]}>
-          Sweet french crepe with powdered sugar available with Nutella, bananas, strawberries,
-          cream and hazelnuts
-        </Text>
-      </View>
+        <Text style={[styles.text, styles.description]}>{product.description}</Text>
+      </TouchableOpacity>
     )
   }
 }
