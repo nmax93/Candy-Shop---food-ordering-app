@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import CheckOutProduct from '../Components/CheckOutScreenComponents/CheckOutProduct'
-import CheckOutHeader from '../Components/CheckOutScreenComponents/CheckOutHeader'
+import TitleBar from '../Components/TitleBar'
 import CheckOutTotal from '../Components/CheckOutScreenComponents/CheckOutTotal'
 import PrettyButton from '../Components/PrettyButton'
 import PropTypes from 'prop-types'
@@ -16,11 +16,21 @@ const styles = StyleSheet.create({
 export default class CheckOutScreen extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.mapOrders = this.mapOrders.bind(this)
   }
 
   static propTypes = {
     navigation: PropTypes.object.isRequired
+  }
+
+  mapOrders() {
+    const { navigation } = this.props
+    const cart = navigation.getParam('cart', '')
+    let count = 0
+    const orders = cart.map(item => {
+      return <CheckOutProduct key={count++} product={item} />
+    })
+    return orders
   }
 
   render() {
@@ -29,11 +39,8 @@ export default class CheckOutScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <CheckOutHeader />
-          <CheckOutProduct />
-          <CheckOutProduct />
-          <CheckOutProduct />
-          <CheckOutTotal />
+          <TitleBar title="Your orders" />
+          {this.mapOrders()}
           <PrettyButton
             text="CHECK OUT"
             onPress={() => navigation.navigate('ConfirmationScreen')}
