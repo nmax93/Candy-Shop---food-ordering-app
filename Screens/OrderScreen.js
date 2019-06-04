@@ -27,8 +27,8 @@ export default class OrderScreen extends Component {
 
   render() {
     const { navigation } = this.props
-    const product = navigation.getParam('product', '')
-    const addToCart = navigation.getParam('addToCart', '')
+    const product = navigation.getParam('product', {})
+    const addToCart = navigation.getParam('addToCart', [])
 
     return (
       <View style={styles.container}>
@@ -42,7 +42,7 @@ export default class OrderScreen extends Component {
           <SeparationLine />
           <AddOnsButton controller={this.AddOnsListController} />
           <SeparationLine />
-          <PrettyButton text="ADD TO CART" onPress={() => addToCart(product)} />
+          <PrettyButton text="ADD TO CART" onPress={() => addToCart()} />
           <SeparationLine />
         </ScrollView>
         <AddOnsList ref={this.AddOnsListController} addOns={product.addOns} />
