@@ -58,7 +58,7 @@ export default class MainScreen extends Component {
           key={count++}
           product={item}
           navigation={navigation}
-          addToCart={() => this.addToCart()}
+          addToCart={() => this.addToCart(item)}
         />
       )
     })
