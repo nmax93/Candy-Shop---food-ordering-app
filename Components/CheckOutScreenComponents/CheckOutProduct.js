@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
+import CheckOutAddOn from './CheckOutAddOn'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +12,6 @@ const styles = StyleSheet.create({
     marginTop: '1%'
   },
   section: { width: '50%' },
-  priceSection: { width: '35%' },
   inline: { flexDirection: 'row' },
   image: {
     height: 200,
@@ -27,72 +28,35 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 18
   },
-  price: {
-    fontWeight: 'bold'
-  },
-  addOns: {
-    color: 'darkgray',
-    fontStyle: 'italic'
-  }
+  price: { fontWeight: 'bold' }
 })
 
 export default class CheckOutProduct extends Component {
+  constructor(props) {
+    super(props)
+    //this.mapAddOns = this.mapAddOns.bind(this)
+  }
+
+  static propTypes = {
+    product: PropTypes.object.isRequired
+  }
+
   render() {
+    const product = this.props.product
+
     return (
       <View style={styles.container}>
         <View style={styles.inline}>
           <View style={styles.section}>
-            <Image
-              style={styles.image}
-              source={{
-                uri:
-                  'https://www.curiouscuisiniere.com/wp-content/uploads/2013/05/French-Sweet-Crepes-with-Nutella-3984.21.jpg'
-              }}
-            />
+            <Image style={styles.image} source={{ uri: product.image }} />
           </View>
           <View style={styles.section}>
-            <Text style={[styles.text, styles.title]}>French Crepe</Text>
-            <Text style={[styles.text, styles.price]}>$7.00</Text>
-            <View style={styles.inline}>
-              <View style={styles.priceSection}>
-                <Text style={[styles.text, styles.price]}>$1.00</Text>
-              </View>
-              <View>
-                <Text style={[styles.text, styles.addOns]}>Nutella</Text>
-              </View>
-            </View>
-            <View style={styles.inline}>
-              <View style={styles.priceSection}>
-                <Text style={[styles.text, styles.price]}>$1.00</Text>
-              </View>
-              <View>
-                <Text style={[styles.text, styles.addOns]}>Strawberries</Text>
-              </View>
-            </View>
-            <View style={styles.inline}>
-              <View style={styles.priceSection}>
-                <Text style={[styles.text, styles.price]}>$1.00</Text>
-              </View>
-              <View>
-                <Text style={[styles.text, styles.addOns]}>Bananas</Text>
-              </View>
-            </View>
-            <View style={styles.inline}>
-              <View style={styles.priceSection}>
-                <Text style={[styles.text, styles.price]}>$1.00</Text>
-              </View>
-              <View>
-                <Text style={[styles.text, styles.addOns]}>Cream</Text>
-              </View>
-            </View>
-            <View style={styles.inline}>
-              <View style={styles.priceSection}>
-                <Text style={[styles.text, styles.price]}>$1.00</Text>
-              </View>
-              <View>
-                <Text style={[styles.text, styles.addOns]}>Hazelnuts</Text>
-              </View>
-            </View>
+            <Text style={[styles.text, styles.title]}>{product.name}</Text>
+            <Text style={[styles.text, styles.price]}>${product.price}.00</Text>
+            <CheckOutAddOn name="NUTELLA" price={1} />
+            <CheckOutAddOn name="asdgag" price={1} />
+            <CheckOutAddOn name="sdf" price={1} />
+            <CheckOutAddOn name="sdfg" price={0.5} />
           </View>
         </View>
       </View>
