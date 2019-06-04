@@ -47,16 +47,23 @@ const styles = StyleSheet.create({
 export default class MainScreenProduct extends Component {
   static propTypes = {
     product: PropTypes.object.isRequired,
+    addToCart: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired
   }
 
   render() {
     const navigation = this.props.navigation
     const product = this.props.product
+
     return (
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate('OrderScreen', { product: product })}
+        onPress={() =>
+          navigation.navigate('OrderScreen', {
+            product: this.props.product,
+            addToCart: this.props.addToCart
+          })
+        }
       >
         <Image style={styles.image} source={{ uri: product.image }} />
         <View style={styles.inline}>
