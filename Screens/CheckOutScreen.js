@@ -25,7 +25,7 @@ export default class CheckOutScreen extends Component {
 
   mapOrders() {
     const { navigation } = this.props
-    const cart = navigation.getParam('cart', '')
+    const cart = navigation.getParam('cart', [])
     let count = 0
     const orders = cart.map(item => {
       return <CheckOutProduct key={count++} product={item} />
@@ -41,6 +41,7 @@ export default class CheckOutScreen extends Component {
         <ScrollView>
           <TitleBar title="Your orders" />
           {this.mapOrders()}
+          <CheckOutTotal />
           <PrettyButton
             text="CHECK OUT"
             onPress={() => navigation.navigate('ConfirmationScreen')}
