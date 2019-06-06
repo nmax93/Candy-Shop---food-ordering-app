@@ -34,29 +34,34 @@ const styles = StyleSheet.create({
 export default class CheckOutProduct extends Component {
   constructor(props) {
     super(props)
-    //this.mapAddOns = this.mapAddOns.bind(this)
+    this.mapAddmapSelectedAddOnsOns = this.mapSelectedAddOns.bind(this)
   }
 
   static propTypes = {
-    product: PropTypes.object.isRequired
+    order: PropTypes.object.isRequired
+  }
+
+  mapSelectedAddOns() {
+    const addOns = this.props.order.addOns
+    let count = 0
+    const addOnsList = addOns.map(item => {
+      return <CheckOutAddOn key={count++} name={item.name} price={item.price} />
+    })
+    return addOnsList
   }
 
   render() {
-    const product = this.props.product
-
+    const order = this.props.order
     return (
       <View style={styles.container}>
         <View style={styles.inline}>
           <View style={styles.section}>
-            <Image style={styles.image} source={{ uri: product.image }} />
+            <Image style={styles.image} source={{ uri: order.product.image }} />
           </View>
           <View style={styles.section}>
-            <Text style={[styles.text, styles.title]}>{product.name}</Text>
-            <Text style={[styles.text, styles.price]}>${product.price}.00</Text>
-            <CheckOutAddOn name="NUTELLA" price={1} />
-            <CheckOutAddOn name="asdgag" price={1} />
-            <CheckOutAddOn name="sdf" price={1} />
-            <CheckOutAddOn name="sdfg" price={0.5} />
+            <Text style={[styles.text, styles.title]}>{order.product.name}</Text>
+            <Text style={[styles.text, styles.price]}>${order.product.price}.00</Text>
+            {this.mapSelectedAddOns()}
           </View>
         </View>
       </View>
