@@ -44,7 +44,8 @@ export default class AddOn extends Component {
 
   static propTypes = {
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    passAddOnDetails: PropTypes.func.isRequired
   }
 
   checkAddOn() {
