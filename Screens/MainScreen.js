@@ -25,13 +25,14 @@ export default class MainScreen extends Component {
     this.getData = this.getData.bind(this)
     this.mapProducts = this.mapProducts.bind(this)
     this.addToCart = this.addToCart.bind(this)
+    this.emptyCart = this.emptyCart.bind(this)
   }
 
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getData()
   }
 
@@ -47,6 +48,10 @@ export default class MainScreen extends Component {
     this.setState(prevState => ({
       cart: [...prevState.cart, { product: item, addOns: selectedAddOns }]
     }))
+  }
+
+  emptyCart() {
+    this.setState({ cart: [] })
   }
 
   mapProducts() {
@@ -78,7 +83,14 @@ export default class MainScreen extends Component {
             <View style={styles.cart}>
               <Cart
                 amount={this.state.cart.length}
-                onPress={() => navigation.navigate('CheckOutScreen', { cart: this.state.cart })}
+                onPress={() =>
+                  navigation.navigate('CheckOutScreen', {
+                    cart: this.state.cart,
+                    emptyCart: this.emptyCart,
+                    dishes: this.state.dishes,
+                    addToCart: this.addToCart
+                  })
+                }
               />
             </View>
           )}
