@@ -23,18 +23,12 @@ const styles = StyleSheet.create({
 })
 
 export default class CheckOutScreen extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
 
   render() {
     const { navigation } = this.props
-
     return (
       <View style={styles.container}>
         <ConfirmationMessage />
@@ -45,10 +39,7 @@ export default class CheckOutScreen extends Component {
           <HorizontalScroll navigation={navigation} />
         </View>
         <View style={styles.button}>
-          <PrettyButton
-            text="CONTINUE SHOPPING"
-            onPress={() => navigation.navigate('MainScreen')}
-          />
+          <PrettyButton text="CONTINUE SHOPPING" handlePress={navigation.popToTop} />
         </View>
       </View>
     )
