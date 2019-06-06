@@ -17,23 +17,39 @@ const styles = StyleSheet.create({
 export default class CheckOutScreen extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.mapProducts = this.mapProducts.bind(this)
   }
 
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
 
-  render() {
-    const navigation = this.props.navigation
+  mapProducts() {
+    const { navigation } = this.props
+    const dishes = navigation.getParam('dishes')
+    const addToCart = navigation.getParam('addToCart')
+    let count = 0
+    const availableDishes = dishes.map(item => {
+      return (
+        <HorizontalScrollProduct
+          key={count++}
+          handlePress={() =>
+            navigation.navigate('OrderScreen', {
+              product: item,
+              addToCart: addToCart
+            })
+          }
+          product={item}
+        />
+      )
+    })
+    return availableDishes
+  }
 
+  render() {
     return (
       <ScrollView style={styles.container} horizontal={true}>
-        <HorizontalScrollProduct onPress={() => navigation.navigate('OrderScreen')} />
-        <HorizontalScrollProduct onPress={() => navigation.navigate('OrderScreen')} />
-        <HorizontalScrollProduct onPress={() => navigation.navigate('OrderScreen')} />
-        <HorizontalScrollProduct onPress={() => navigation.navigate('OrderScreen')} />
-        <HorizontalScrollProduct onPress={() => navigation.navigate('OrderScreen')} />
+        {this.mapProducts()}
       </ScrollView>
     )
   }
