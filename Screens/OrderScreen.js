@@ -18,17 +18,25 @@ const styles = StyleSheet.create({
 export default class OrderScreen extends Component {
   constructor(props) {
     super(props)
+    this.state = { selectedAddOns: [] }
     this.AddOnsListController = React.createRef()
+    this.getUserAddOn = this.getUserAddOn.bind(this)
   }
 
   static propTypes = {
     navigation: PropTypes.object.isRequired
   }
 
+  getUserAddOn(addOn) {
+    this.setState(prevState => ({
+      selectedAddOns: [...prevState.selectedAddOns, addOn]
+    }))
+  }
+
   render() {
     const { navigation } = this.props
-    const product = navigation.getParam('product', {})
-    const addToCart = navigation.getParam('addToCart', [])
+    const product = navigation.getParam('product')
+    const addToCart = navigation.getParam('addToCart')
 
     return (
       <View style={styles.container}>
@@ -42,10 +50,17 @@ export default class OrderScreen extends Component {
           <SeparationLine />
           <AddOnsButton controller={this.AddOnsListController} />
           <SeparationLine />
-          <PrettyButton text="ADD TO CART" onPress={() => addToCart()} />
+          <PrettyButton
+            text="ADD TO CART"
+            onPress={() => addToCart(product, this.state.selectedAddOns)}
+          />
           <SeparationLine />
         </ScrollView>
-        <AddOnsList ref={this.AddOnsListController} addOns={product.addOns} />
+        <AddOnsList
+          ref={this.AddOnsListController}
+          addOns={product.addOns}
+          passAddOnDetails={addOn => this.getUserAddOn(addOn)}
+        />
       </View>
     )
   }
