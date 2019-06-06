@@ -25,7 +25,7 @@ export default class CheckOutScreen extends Component {
 
   mapOrders() {
     const { navigation } = this.props
-    const cart = navigation.getParam('cart', [])
+    const cart = navigation.getParam('cart')
     let count = 0
     const orders = cart.map(item => {
       return <CheckOutProduct key={count++} order={item} />
@@ -35,7 +35,7 @@ export default class CheckOutScreen extends Component {
 
   render() {
     const { navigation } = this.props
-    const cart = navigation.getParam('cart', [])
+    const cart = navigation.getParam('cart')
 
     return (
       <View style={styles.container}>
