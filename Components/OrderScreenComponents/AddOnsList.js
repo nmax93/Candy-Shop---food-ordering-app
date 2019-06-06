@@ -45,7 +45,6 @@ export default class AddOnsList extends Component {
     super(props)
     this.state = {
       display: false,
-      selectedAddOns: [],
       pan: new Animated.ValueXY({ x: 0, y: Window.height - 75 }),
       opacity: new Animated.Value(0)
     }
