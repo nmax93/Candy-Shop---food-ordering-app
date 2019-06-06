@@ -43,9 +43,9 @@ export default class MainScreen extends Component {
       .catch()
   }
 
-  addToCart(product) {
+  addToCart(item, selectedAddOns) {
     this.setState(prevState => ({
-      cart: [...prevState.cart, product]
+      cart: [...prevState.cart, { product: item, addOns: selectedAddOns }]
     }))
   }
 
@@ -58,7 +58,7 @@ export default class MainScreen extends Component {
           key={count++}
           product={item}
           navigation={navigation}
-          addToCart={() => this.addToCart(item)}
+          addToCart={(product, addOns) => this.addToCart(product, addOns)}
         />
       )
     })
