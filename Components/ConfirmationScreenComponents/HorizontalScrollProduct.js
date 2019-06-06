@@ -29,21 +29,18 @@ const styles = StyleSheet.create({
 
 export default class CheckOutScreen extends Component {
   static propTypes = {
-    onPress: PropTypes.func.isRequired
+    handlePress: PropTypes.func.isRequired,
+    product: PropTypes.object.isRequired
   }
 
   render() {
+    const product = this.props.product
+
     return (
-      <TouchableOpacity style={styles.container} onPress={() => this.props.onPress()}>
-        <Image
-          style={styles.image}
-          source={{
-            uri:
-              'https://www.curiouscuisiniere.com/wp-content/uploads/2013/05/French-Sweet-Crepes-with-Nutella-3984.21.jpg'
-          }}
-        />
-        <Text style={styles.text}>French Crepe</Text>
-        <Text style={[styles.text, styles.price]}>$7.00</Text>
+      <TouchableOpacity style={styles.container} onPress={() => this.props.handlePress()}>
+        <Image style={styles.image} source={{ uri: product.image }} />
+        <Text style={styles.text}>{product.name}</Text>
+        <Text style={[styles.text, styles.price]}>${product.price}.00</Text>
       </TouchableOpacity>
     )
   }
