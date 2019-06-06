@@ -45,6 +45,7 @@ export default class AddOnsList extends Component {
     super(props)
     this.state = {
       display: false,
+      selectedAddOns: [],
       pan: new Animated.ValueXY({ x: 0, y: Window.height - 75 }),
       opacity: new Animated.Value(0)
     }
@@ -53,7 +54,8 @@ export default class AddOnsList extends Component {
   }
 
   static propTypes = {
-    addOns: PropTypes.array.isRequired
+    addOns: PropTypes.array.isRequired,
+    passAddOnDetails: PropTypes.func.isRequired
   }
 
   showAddOnsList() {
@@ -87,9 +89,17 @@ export default class AddOnsList extends Component {
   }
 
   mapAddOns() {
+    const passAddOnDetails = this.props.passAddOnDetails
     let count = 0
     const addOns = this.props.addOns.map(item => {
-      return <AddOn key={count++} name={item.name} price={item.price} />
+      return (
+        <AddOn
+          key={count++}
+          name={item.name}
+          price={item.price}
+          passAddOnDetails={() => passAddOnDetails(item)}
+        />
+      )
     })
     return addOns
   }
