@@ -50,6 +50,7 @@ export default class AddOn extends Component {
   checkAddOn() {
     if (this.state.check === false) this.setState({ check: true })
     else this.setState({ check: false })
+    this.props.passAddOnDetails()
   }
 
   padPrice(price) {
