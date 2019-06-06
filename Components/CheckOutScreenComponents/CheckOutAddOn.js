@@ -35,8 +35,8 @@ export default class CheckOutAddOn extends Component {
   }
 
   padPrice(price) {
-    if (price >= 1) return price.toString() + '.00'
-    return price.toString() + '0'
+    if (price >= 1) return price + '.00'
+    return price + '0'
   }
 
   render() {
