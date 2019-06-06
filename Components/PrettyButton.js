@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 export default class PrettyButton extends Component {
   static propTypes = {
-    onPress: PropTypes.func.isRequired,
+    handlePress: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired
   }
 
@@ -35,7 +35,7 @@ export default class PrettyButton extends Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={[styles.button, styles.center]}
-          onPress={() => this.props.onPress()}
+          onPress={() => this.props.handlePress()}
         >
           <Text style={styles.text}>{this.props.text}</Text>
         </TouchableOpacity>
