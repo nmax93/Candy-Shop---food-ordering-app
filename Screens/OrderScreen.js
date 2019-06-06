@@ -28,9 +28,18 @@ export default class OrderScreen extends Component {
   }
 
   getUserAddOn(addOn) {
-    this.setState(prevState => ({
-      selectedAddOns: [...prevState.selectedAddOns, addOn]
-    }))
+    if (!this.state.selectedAddOns.includes(addOn)) {
+      this.setState(prevState => ({
+        selectedAddOns: [...prevState.selectedAddOns, addOn]
+      }))
+    } else {
+      const index = this.state.selectedAddOns.indexOf(addOn)
+      if (index > -1) {
+        const stateArray = this.state.selectedAddOns
+        stateArray.splice(index, 1)
+        this.setState({ selectedAddOns: stateArray })
+      }
+    }
   }
 
   render() {
@@ -52,7 +61,7 @@ export default class OrderScreen extends Component {
           <SeparationLine />
           <PrettyButton
             text="ADD TO CART"
-            onPress={() => addToCart(product, this.state.selectedAddOns)}
+            handlePress={() => addToCart(product, this.state.selectedAddOns)}
           />
           <SeparationLine />
         </ScrollView>
