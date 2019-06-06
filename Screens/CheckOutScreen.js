@@ -17,6 +17,7 @@ export default class CheckOutScreen extends Component {
   constructor(props) {
     super(props)
     this.mapOrders = this.mapOrders.bind(this)
+    this.finishProcess = this.finishProcess.bind(this)
   }
 
   static propTypes = {
@@ -33,6 +34,15 @@ export default class CheckOutScreen extends Component {
     return orders
   }
 
+  finishProcess() {
+    const { navigation } = this.props
+    const emptyCart = navigation.getParam('emptyCart')
+    const MainScreenDishes = navigation.getParam('dishes')
+    const addToCart = navigation.getParam('addToCart')
+    emptyCart()
+    navigation.navigate('ConfirmationScreen', { dishes: MainScreenDishes, addToCart: addToCart })
+  }
+
   render() {
     const { navigation } = this.props
     const cart = navigation.getParam('cart')
@@ -43,10 +53,7 @@ export default class CheckOutScreen extends Component {
           <TitleBar title="Your orders" />
           {this.mapOrders()}
           <CheckOutTotal ordersList={cart} />
-          <PrettyButton
-            text="CHECK OUT"
-            onPress={() => navigation.navigate('ConfirmationScreen')}
-          />
+          <PrettyButton text="CHECK OUT" handlePress={this.finishProcess} />
         </ScrollView>
       </View>
     )
