@@ -1,10 +1,11 @@
 import React from 'react'
+import { StyleSheet, Image } from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import MainScreen from '../Screens/MainScreen'
 import CheckOutScreen from '../Screens/CheckOutScreen'
 import OrderScreen from '../Screens/OrderScreen'
 import ConfirmationScreen from '../Screens/ConfirmationScreen'
-import { StyleSheet, Image } from 'react-native'
+import HistoryScreen from '../Screens/HistoryScreen'
 
 const styles = StyleSheet.create({
   logo: {
@@ -45,6 +46,10 @@ const AppNavigator = createStackNavigator({
   },
   ConfirmationScreen: {
     screen: ConfirmationScreen,
+    navigationOptions: NavigationOptions
+  },
+  HistoryScreen: {
+    screen: HistoryScreen,
     navigationOptions: NavigationOptions
   }
 })
