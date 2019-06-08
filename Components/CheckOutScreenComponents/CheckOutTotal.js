@@ -25,25 +25,8 @@ const styles = StyleSheet.create({
 })
 
 export default class CheckOutTotal extends Component {
-  constructor(props) {
-    super(props)
-    this.generateTotal = this.generateTotal.bind(this)
-  }
-
   static propTypes = {
-    ordersList: PropTypes.array.isRequired
-  }
-
-  generateTotal() {
-    const orders = this.props.ordersList
-    let price = 0
-    orders.forEach(order => {
-      price += order.product.price
-      order.addOns.forEach(addOn => (price += addOn.price))
-    })
-    const rounded = Math.round(price)
-    if (price - rounded === 0) return price + '.00'
-    return price + '0'
+    total: PropTypes.string.isRequired
   }
 
   render() {
@@ -53,7 +36,7 @@ export default class CheckOutTotal extends Component {
           <Text style={styles.text}>TOTAL</Text>
         </View>
         <View style={styles.section}>
-          <Text style={[styles.text, styles.price]}>${this.generateTotal()}</Text>
+          <Text style={[styles.text, styles.price]}>${this.props.total}</Text>
         </View>
       </View>
     )
