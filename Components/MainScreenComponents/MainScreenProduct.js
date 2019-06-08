@@ -5,11 +5,11 @@ import PropTypes from 'prop-types'
 const styles = StyleSheet.create({
   container: {
     height: 300,
-    width: '98%',
+    width: '96%',
     borderRadius: 10,
     backgroundColor: 'white',
-    marginLeft: '1%',
-    marginTop: '2%'
+    marginLeft: '2%',
+    marginBottom: '3%'
   },
   image: {
     height: 220,
