@@ -3,9 +3,10 @@ import { StyleSheet, ScrollView, View } from 'react-native'
 import MainScreenProduct from '../Components/MainScreenComponents/MainScreenProduct'
 import TitleBar from '../Components/TitleBar'
 import Loading from '../Components/Loading'
+import History from '../Components/History'
 import Cart from '../Components/Cart'
 import PropTypes from 'prop-types'
-import { myAPIkey, myDatabase, myCollection, myDocument } from '../consts'
+import { myAPIkey, myDatabase, myCollection, dishesDocument } from '../consts'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +16,15 @@ const styles = StyleSheet.create({
     bottom: 35,
     right: 35,
     position: 'absolute'
+  },
+  history: {
+    bottom: 35,
+    left: 35,
+    position: 'absolute'
+  },
+  emptySpace: {
+    height: 50,
+    width: '100%'
   }
 })
 
@@ -37,7 +47,7 @@ export default class MainScreen extends Component {
   }
 
   getData() {
-    const url = `https://api.mlab.com/api/1/databases/${myDatabase}/collections/${myCollection}/${myDocument}?apiKey=${myAPIkey}`
+    const url = `https://api.mlab.com/api/1/databases/${myDatabase}/collections/${myCollection}/${dishesDocument}?apiKey=${myAPIkey}`
     fetch(`${url}`)
       .then(res => res.json())
       .then(data => this.setState({ dishes: data.dishes, isReady: true }))
@@ -78,6 +88,7 @@ export default class MainScreen extends Component {
           <ScrollView style={styles.container}>
             <TitleBar title={this.state.dishes.length + ' results were found'} />
             {this.mapProducts()}
+            <View style={styles.emptySpace} />
           </ScrollView>
           {this.state.cart.length !== 0 && (
             <View style={styles.cart}>
@@ -94,6 +105,9 @@ export default class MainScreen extends Component {
               />
             </View>
           )}
+          <View style={styles.history}>
+            <History onPress={() => navigation.navigate('HistoryScreen')} />
+          </View>
         </View>
       )
     }
