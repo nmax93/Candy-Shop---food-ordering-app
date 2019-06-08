@@ -7,12 +7,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    shadowRadius: 5,
-    shadowOffset: { height: 2, width: 2 }
+    padding: 10
   },
   button: {
-    backgroundColor: '#e91d63',
+    backgroundColor: 'forestgreen',
     width: 70,
     height: 70,
     borderRadius: 35,
@@ -28,7 +26,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 22,
     width: 22,
-    backgroundColor: 'forestgreen',
+    backgroundColor: '#e91d63',
     borderRadius: 11,
     borderWidth: 1,
     borderColor: 'white',
