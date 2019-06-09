@@ -19,7 +19,6 @@ export default class CheckOutScreen extends Component {
     this.state = { total: '' }
     this.mapOrders = this.mapOrders.bind(this)
     this.finishProcess = this.finishProcess.bind(this)
-    this.updateTotal = this.updateTotal.bind(this)
     this.generateTotal = this.generateTotal.bind(this)
   }
 
@@ -39,10 +38,6 @@ export default class CheckOutScreen extends Component {
       return <CheckOutProduct key={count++} order={item} />
     })
     return orders
-  }
-
-  updateTotal(newTotal) {
-    this.setState({ total: newTotal })
   }
 
   generateTotal() {
