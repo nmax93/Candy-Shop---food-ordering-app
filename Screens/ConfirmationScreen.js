@@ -79,15 +79,18 @@ export default class ConfirmationScreen extends Component {
     const url = `https://api.mlab.com/api/1/databases/${myDatabase}/collections/${myCollection}/${historyDocument}?apiKey=${myAPIkey}`
     fetch(`${url}`)
       .then(res => res.json())
-      .then(data => this.setState({ history: data.history, isReady: true }))
+      .then(data =>
+        this.setState({ history: data.history, isReady: true }, () => {
+          const history = [...this.state.history]
+          history.push(order)
+          const xhr = new XMLHttpRequest()
+          xhr.open('PUT', url, true)
+          xhr.setRequestHeader('Content-Type', 'application/json')
+          xhr.send(JSON.stringify({ history }))
+          emptyCart()
+        })
+      )
       .catch()
-    const history = [...this.state.history]
-    history.push(order)
-    const xhr = new XMLHttpRequest()
-    xhr.open('PUT', url, true)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(JSON.stringify({ history }))
-    emptyCart()
   }
 
   render() {
